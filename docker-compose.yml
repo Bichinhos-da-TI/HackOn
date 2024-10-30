@@ -1,0 +1,32 @@
+services:
+  postgres-develop:
+    image: postgres:latest
+    container_name: postgres-dev
+    environment:
+      DB_HOST_DEV: ${DB_HOST_DEV}
+      DB_PORT_DEV: ${DB_PORT_DEV}
+      DB_USER_DEV: ${DB_USER_DEV}
+      DB_PASSWORD_DEV: ${DB_PASSWORD_DEV}
+      DB_NAME_DEV: ${DB_NAME_DEV}
+    ports:
+      - $"{DB_PORT_DEV}:5432"
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+
+  postgres-prod:
+    image: postgres:latest
+    container_name: postgres-prod
+    environment:
+      DB_HOST_DEV: ${DB_HOST}
+      DB_PORT_DEV: ${DB_PORT}
+      DB_USER_DEV: ${DB_USER}
+      DB_PASSWORD_DEV: ${DB_PASSWORD}
+      DB_NAME_DEV: ${DB_NAME}
+    ports:
+      - $"{DB_PORT}:5432"
+    volumes:
+      - postgres-prod-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-dev-data:
+  postgres-prod-data:
