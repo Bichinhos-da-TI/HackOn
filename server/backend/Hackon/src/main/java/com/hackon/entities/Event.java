@@ -23,8 +23,10 @@ public class Event {
     private LocalDateTime startDateTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime endDateTime;
+    // Substituir por relação com usuário quando houver a entidade
+    private Long userId;
 
-    public Event(Long id, String name, String description, String location, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public Event(Long id, String name, String description, String location, LocalDateTime startDateTime, LocalDateTime endDateTime, Long userId) {
         SimpleDateFormat smt = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         this.id = id;
@@ -33,6 +35,7 @@ public class Event {
         this.location = location;
         this.startDateTime = LocalDateTime.parse(smt.format(startDateTime));
         this.endDateTime =  LocalDateTime.parse(smt.format(endDateTime));
+        this.userId = userId;
     }
     public Event() {}
 
@@ -82,6 +85,14 @@ public class Event {
 
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

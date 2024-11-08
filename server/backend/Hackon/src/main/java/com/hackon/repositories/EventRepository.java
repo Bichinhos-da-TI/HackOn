@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
@@ -23,5 +24,14 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end,
             @Param("location") String location);
+
+
+    @Query("SELECT e FROM Event e WHERE e.userId = :userId " +
+            "AND EXTRACT(YEAR FROM e.startDateTime) = :year " +
+            "AND EXTRACT(MONTH FROM e.startDateTime) = :month")
+    List<Event> findAllByUserIdAndMonth(
+            @Param("userId") Long userId,
+            @Param("month") Integer month,
+            @Param("year") Integer year);
 
 }

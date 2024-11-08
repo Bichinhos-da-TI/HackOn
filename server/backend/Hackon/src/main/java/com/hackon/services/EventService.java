@@ -25,6 +25,9 @@ public class EventService {
         if(Duration.between(event.getStartDateTime(), event.getEndDateTime()).toHours() < 1 || Duration.between(event.getStartDateTime(), event.getEndDateTime()).toHours() > 48){
             throw new RuntimeException("The minimum event duration is 1 hour, and the maximum event duration is 48 hours");
         }
+        if(eventRepository.findAllByUserIdAndMonth(event.getUserId(), event.getStartDateTime().getMonth().getValue(), event.getStartDateTime().getYear()).size() >= 5){
+            throw new RuntimeException("You have already created 5 events this mounth");
+        }
 
 
         return eventRepository.save(event);
