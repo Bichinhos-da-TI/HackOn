@@ -30,14 +30,13 @@ _Para instalar este projeto você deve:_
    git clone https://github.com/Bichinhos-da-TI/HackOn-backend.git
    ```
 2. Direcionar para o diretório correto
+    ```sh
+   cd ./HackOn-backend/server/backend
+    ```
+3. Executar o script de inicialização do backend
    ```sh
-   cd ./server/backend/Hackon
+   ./backend-run.sh
    ```
-3. Iniciar o projeto Spring
-   ```sh
-   mvn spring-boot:run 
-   ```
-   
 ## 🤝 Contribuições
   Para contribuir com código do projeto, é necessário fazer parte da squad 1 de desenvolvimento de produtos da Bichinhos da TI, você pode encontrar mais informações em: https://www.linkedin.com/company/bichinhosdati. <br />
   Sinta-se livre para contribuir com o projeto postando uma issue e/ou entrando em discussões. <br />
