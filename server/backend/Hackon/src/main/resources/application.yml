@@ -6,7 +6,7 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration # Desativa a config automatica e retira a necessidade de um DB pre configurado
 
-  # Utilize este configuração apenas para DEBUG em desenvolvimento
+  # Utilize este configuraÃ§Ã£o apenas para DEBUG em desenvolvimento
   security:
     csrf:
       enabled: false
