@@ -1,12 +1,16 @@
 package com.hackon.services;
 
-import com.hackon.entities.Event;
-import com.hackon.repositories.EventRepository;
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.util.List;
+import com.hackon.entities.Event;
+import com.hackon.repositories.EventRepository;
+
 
 @Service
 public class EventService {
@@ -32,6 +36,20 @@ public class EventService {
 
         return eventRepository.save(event);
 
+    }
+
+
+    public ResponseEntity<?> delete(Long id) throws NotFoundException{
+        var eventDelete = eventRepository.findById(id);
+        //#TODO tem que fazer a validação de autorizacao quando tiver a entidade de usuarios
+
+        if(eventDelete.isEmpty()){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found"); 
+        } 
+
+        //#TODO verificacao de desafio em_andamento ou concluido quando tiver a entidade
+        eventRepository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Deleted Successfully"); 
     }
 
 }
