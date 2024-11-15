@@ -1,0 +1,56 @@
+-- Database: hackondb
+
+-- DROP DATABASE IF EXISTS hackondb;
+
+CREATE DATABASE hackondb
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Portuguese_Brazil.1252'
+    LC_CTYPE = 'Portuguese_Brazil.1252'
+    LOCALE_PROVIDER = 'libc'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+CREATE TABLE Cliente(
+	id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nome TEXT NOT NULL,
+	email TEXT UNIQUE NOT NULL,
+	telefone TEXT,
+	data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Produto(
+	id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nome TEXT NOT NULL,
+	descricao TEXT,
+	preco DECIMAL NOT NULL,
+	estoque INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TYPE StatusEnum AS ENUM ('Pendente', 'Finalizado', 'Cancelado');
+
+CREATE TABLE Status(
+	id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	statusPedido StatusEnum NOT NULL
+);
+
+CREATE TABLE Pedido(
+	id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	id_cliente INTEGER NOT NULL,
+	data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	total DECIMAL NOT NULL,
+	status_id INTEGER NOT NULL,
+	FOREIGN KEY (id_cliente) REFERENCES Cliente(id) ON DELETE CASCADE,
+	FOREIGN KEY (status_id) REFERENCES Status(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Pedido_Produto(
+	id_pedido INTEGER NOT NULL,
+	id_produto INTEGER NOT NULL,
+	quantidade INTEGER NOT NULL,
+	PRIMARY KEY (id_pedido, id_produto),
+	FOREIGN KEY (id_pedido) REFERENCES Pedido(id) ON DELETE CASCADE,
+	FOREIGN KEY (id_produto) REFERENCES Produto(id) ON DELETE CASCADE
+);

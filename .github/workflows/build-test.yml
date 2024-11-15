@@ -1,0 +1,25 @@
+name: Project-Build
+on: [push]
+jobs:
+  build:
+    runs-on: [self-hosted]
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: maven
+      
+      - name: Run Maven tests
+        run: mvn -B test --file ./server/backend/Hackon/pom.xml
