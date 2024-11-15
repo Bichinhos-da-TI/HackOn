@@ -31,7 +31,6 @@ _Para instalar este projeto, siga os passos abaixo:_
    ```sh
    git clone https://github.com/Bichinhos-da-TI/HackOn-backend.git
    ```
-
 2. Navegue até o diretório do projeto
     ```sh
    cd ./HackOn-backend
@@ -58,20 +57,6 @@ _Para instalar este projeto, siga os passos abaixo:_
    ```
    
 5. Acesse o banco de dados e execute o script SQL:
-=======
-2. Direcionar para o diretório correto
-    ```sh
-   cd ./HackOn-backend/server/backend
-    ```
-3. Executar o script de inicialização do backend
-   ```sh
-   ./backend-run.sh
-   ```
-## 🤝 Contribuições
-  Para contribuir com código do projeto, é necessário fazer parte da squad 1 de desenvolvimento de produtos da Bichinhos da TI, você pode encontrar mais informações em: https://www.linkedin.com/company/bichinhosdati. <br />
-  Sinta-se livre para contribuir com o projeto postando uma issue e/ou entrando em discussões. <br />
-Apreciamos imensamento o suporte e qualquer ajuda possivel :).
-
 
     ```sh
     docker exec -i <NOME_DO_CONTAINER_DB> psql -U <USUARIO> -d <DATABASE> -f /caminho/para/seu/script.sql
