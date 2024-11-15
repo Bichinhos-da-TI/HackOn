@@ -22,7 +22,7 @@ jobs:
           cache: maven
       
       - name: Install Maven
-        run: yay -S --noconfirm maven
+        run: sudo pacman -S --noconfirm maven
       
       - name: Run Maven tests
         run: mvn -B test --file ./server/backend/Hackon/pom.xml
