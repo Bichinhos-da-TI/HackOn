@@ -21,8 +21,5 @@ jobs:
           distribution: temurin
           cache: maven
       
-      - name: Install Maven
-        run: sudo pacman -S --noconfirm maven
-      
       - name: Run Maven tests
         run: mvn -B test --file ./server/backend/Hackon/pom.xml
