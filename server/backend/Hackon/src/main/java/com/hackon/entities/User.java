@@ -17,14 +17,16 @@ public class User {
     private Long id;
     @Column(unique=true)
     private String username;
+    private String name;
     private String password;
     private String role;
 
-    public User(String role, Long id, String password, String username) {
+    public User(String role, Long id, String password, String name, String username) {
         this.role = role;
         this.id = id;
         this.password = password;
         this.username = username;
+        this.name = name;
     }
 
     public User(){}
@@ -43,6 +45,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -65,8 +75,8 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return Objects.equals(id, event.id);
+        User user = (User) o;
+        return Objects.equals(id, user.id);
     }
 
     @Override
