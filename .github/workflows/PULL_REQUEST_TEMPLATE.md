@@ -5,14 +5,13 @@
 <!-- Descreva as mudanças propostas, o problema que está sendo resolvido e a motivação por trás dessas alterações. -->
 
 ## Tipo de Mudança
-<!-- ISSO É UMA CHECKBOX, PODEM ADICIONAR, MAS NÃO REMOVAM NENHUMA OPÇÃO -->
-
-- [ ] Correção de bug
-- [ ] Nova funcionalidade
-- [ ] Melhoria de performance
-- [ ] Atualização de documentação
-- [ ] Atualização de dependências
-- [ ] Outro (especificar abaixo)
+<!-- SELECIONE O TIPO DE MUDANÇA ABAIXO (REMOVA OS QUE NÃO SE ENCAIXAM) -->
+- Correção de bug
+- Nova funcionalidade
+- Melhoria de performance
+- Atualização de documentação
+- Atualização de dependências
+- Outro (especificar abaixo)
 
 ## Issue Relacionada
 
