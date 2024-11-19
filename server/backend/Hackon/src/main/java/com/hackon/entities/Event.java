@@ -1,14 +1,15 @@
 package com.hackon.entities;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 public class Event {
@@ -28,7 +29,6 @@ public class Event {
 
     public Event(Long id, String name, String description, String location, LocalDateTime startDateTime, LocalDateTime endDateTime, Long userId) {
         SimpleDateFormat smt = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
         this.id = id;
         this.name = name;
         this.description = description;
