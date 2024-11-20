@@ -21,12 +21,19 @@ public class User {
     private String password;
     private String role;
 
-    public User(String role, Long id, String password, String name, String username) {
-        this.role = role;
+    public User(Long id,String name, String username,String password,String role) {
         this.id = id;
-        this.password = password;
-        this.username = username;
         this.name = name;
+        this.username = username;
+        this.password = password;        
+        this.role = role;
+    }
+    //constructor usado para criacao de usuario no caso nao recebe nenhum ID
+    public User(String name, String username, String password,String role) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     public User(){}
