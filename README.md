@@ -123,7 +123,7 @@ _Siga os passos abaixo para instalar o projeto:_
    - Renomeie o arquivo `.env.example` para `.env`:
 
      ```sh
-     mv .env .env
+     mv .env.example .env
      ```
 
    - Abra o arquivo `.env` e insira as credenciais necessárias para a execução do Docker:
