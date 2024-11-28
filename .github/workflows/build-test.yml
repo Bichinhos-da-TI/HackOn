@@ -1,5 +1,6 @@
 name: Project-Build
 on: [push]
+
 jobs:
   build:
     runs-on: [self-hosted]
@@ -21,14 +22,13 @@ jobs:
       DB_NAME_DEV: database_name_dev
 
     steps:
+      # Clona o repositório
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
-      - name: Set up Docker Compose
-        run: docker compose up -d
-
+      # Configura o Java 21
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -36,9 +36,21 @@ jobs:
           distribution: temurin
           cache: maven
 
-      - name: Run Maven clean and package
-        working-directory: ./server/backend/Hackon/src
-        run: mvn clean package
+      # Limpa o projeto
+      - name: Maven Clean
+        run: mvn clean
+        working-directory: ./server/backend/Hackon
 
-      - name: Run Maven tests
-        run: mvn -B test --file ./server/backend/Hackon/pom.xml
+      # Compila e empacota o projeto
+      - name: Maven Package
+        run: mvn package -DskipTests
+        working-directory: ./server/backend/Hackon
+
+      # Constrói e inicia os containers Docker
+      - name: Docker Compose Build and Up
+        run: docker compose up --build -d
+
+      # Executa os testes (se necessário)
+      - name: Run Maven Tests
+        run: mvn test
+        working-directory: ./server/backend/Hackon
