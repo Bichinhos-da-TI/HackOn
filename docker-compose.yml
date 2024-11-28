@@ -6,36 +6,35 @@ services:
       - "8080:8080"
     depends_on:
       - postgres-develop
+
   postgres-develop:
-    image: postgres:latest
+    image: postgres:17.2-alpine3.20
     container_name: postgres-dev
     environment:
-      DB_HOST_DEV: ${DB_HOST_DEV}
-      DB_PORT_DEV: ${DB_PORT_DEV}
-      DB_USER_DEV: ${DB_USER_DEV}
-      DB_PASSWORD_DEV: ${DB_PASSWORD_DEV}
-      DB_NAME_DEV: ${DB_NAME_DEV}
+      POSTGRES_HOST: ${DB_HOST_DEV:-localhost}
+      POSTGRES_PORT: ${DB_PORT_DEV:-5432}
+      POSTGRES_USER: ${DB_USER_DEV:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD_DEV:-postgres}
+      POSTGRES_DB: ${DB_NAME_DEV:-hackon_dev}
     ports:
-      - $"{DB_PORT_DEV}:5432"
+      - "${DB_PORT_DEV:-5432}:5432"
     volumes:
       - postgres-dev-data:/var/lib/postgresql/data
 
   postgres-prod:
-    image: postgres:latest
+    image: postgres:17.2-alpine3.20
     container_name: postgres-prod
     environment:
-      DB_HOST_DEV: ${DB_HOST}
-      DB_PORT_DEV: ${DB_PORT}
-      DB_USER_DEV: ${DB_USER}
-      DB_PASSWORD_DEV: ${DB_PASSWORD}
-      DB_NAME_DEV: ${DB_NAME}
+      POSTGRES_HOST: ${DB_HOST:-localhost}
+      POSTGRES_PORT: ${DB_PORT:-5432}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-hackon_prod}
     ports:
-      - $"{DB_PORT}:5432"
+      - "${DB_PORT:-5433}:5432"
     volumes:
       - postgres-prod-data:/var/lib/postgresql/data
 
 volumes:
   postgres-dev-data:
   postgres-prod-data:
-
-

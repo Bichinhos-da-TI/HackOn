@@ -70,7 +70,7 @@
      - Renomeie o arquivo `.env.example` para `.env`:
 
         ```sh
-        mv .env.example .env
+        mv .env .env
         ```
 
         - Abra o arquivo `.env` e insira as credenciais necessárias para a execução do Docker:
