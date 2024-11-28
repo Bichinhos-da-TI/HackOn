@@ -1,7 +1,10 @@
 package com.hackon.services;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
+import com.hackon.dto.UpdateEventDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,5 +64,46 @@ public class EventService {
 
         }
         return ResponseEntity.status(HttpStatus.OK).body(eventFound);
+    }
+
+    public ResponseEntity<Void> update(long id, UpdateEventDto dto){
+        Event eventUpdate = eventRepository
+                .findById(id)
+                .orElseThrow();
+
+        validateRequiredFields(dto);
+
+        if(validateDate(dto.startDateTime(), dto.endDateTime())){
+            eventUpdate.setStartDateTime(dto.startDateTime());
+            eventUpdate.setEndDateTime(dto.endDateTime());
+        } else {
+            throw new RuntimeException("End date must be later than start date.");
+        }
+
+        eventUpdate.setName(dto.name());
+        eventUpdate.setDescription(dto.description());
+
+        eventRepository.save(eventUpdate);
+
+        return ResponseEntity.ok().build();
+    }
+
+    private void validateRequiredFields(UpdateEventDto dto) {
+        if (dto.name().isEmpty()) {
+            throw new IllegalArgumentException("Event title is required.");
+        }
+        if (dto.description().isEmpty()) {
+            throw new IllegalArgumentException("Event description is required.");
+        }
+        if (dto.startDateTime() == null) {
+            throw new IllegalArgumentException("Start date is required.");
+        }
+        if (dto.endDateTime() == null) {
+            throw new IllegalArgumentException("End date is required.");
+        }
+    }
+
+    private boolean validateDate(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return startDateTime != null && endDateTime != null && !startDateTime.isAfter(endDateTime);
     }
 }
