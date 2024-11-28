@@ -36,9 +36,9 @@ jobs:
           distribution: temurin
           cache: maven
 
-      - name: Run Maven clean
+      - name: Run Maven clean and package
         working-directory: ./server/backend/Hackon/src
-        run: mvn clean
+        run: mvn clean package
 
       - name: Run Maven tests
         run: mvn -B test --file ./server/backend/Hackon/pom.xml
