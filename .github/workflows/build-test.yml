@@ -8,6 +8,18 @@ jobs:
       matrix:
         containers: [1]
 
+    env:
+      DB_HOST: localhost
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_NAME: database_name
+      DB_HOST_DEV: localhost
+      DB_PORT_DEV: ${{ secrets.DB_PORT_DEV }}
+      DB_USER_DEV: ${{ secrets.DB_USER_DEV }}
+      DB_PASSWORD_DEV: ${{ secrets.DB_PASSWORD_DEV }}
+      DB_NAME_DEV: database_name_dev
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,6 +32,6 @@ jobs:
           java-version: 21
           distribution: temurin
           cache: maven
-      
+
       - name: Run Maven tests
         run: mvn -B test --file ./server/backend/Hackon/pom.xml
