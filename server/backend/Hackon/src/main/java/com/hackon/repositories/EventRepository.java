@@ -34,4 +34,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             @Param("month") Integer month,
             @Param("year") Integer year);
 
+    @Query("SELECT e FROM Event e")
+    List<Event> findAllEvents();
 }

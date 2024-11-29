@@ -27,6 +27,11 @@ public class EventController {
         this.eventService = eventService;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<?> listAll(){
+        return ResponseEntity.ok(eventService.findAll());
+    }
+
     @PostMapping()
     public ResponseEntity<Event> create(@RequestBody Event event) {
         Event eventCreated = eventService.create(event);

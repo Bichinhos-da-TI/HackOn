@@ -1,8 +1,10 @@
 package com.hackon.services;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.Optional;
+
 
 import com.hackon.dto.UpdateEventDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,10 @@ public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    public ArrayList<Event> findAll(){
+        return (ArrayList<Event>) eventRepository.findAllEvents();
+    }
 
     public Event create(Event event) {
         if(!event.getStartDateTime().isBefore(event.getEndDateTime())){
@@ -48,12 +54,12 @@ public class EventService {
         //#TODO verificacao de desafio em_andamento ou concluido quando tiver a entidade
 
         if(eventDelete.isEmpty()){
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found"); 
-        } 
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+        }
 
-        
+
         eventRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Deleted Successfully"); 
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Deleted Successfully");
     }
 
 
