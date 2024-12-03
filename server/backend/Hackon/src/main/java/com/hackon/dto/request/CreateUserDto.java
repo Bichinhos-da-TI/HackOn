@@ -7,7 +7,7 @@ import jakarta.persistence.Column;
 
 public record CreateUserDto(
     @Nonnull @Column(length=200, nullable=false) String name,
-    @Nonnull @Column(length=200, nullable=false) String username,
+    @Nonnull @Column(length=200, nullable=false) String email,
     @Nonnull @Column(length=200, nullable=false) String password,
     @Nonnull UserRoleEnum role
 ) {}

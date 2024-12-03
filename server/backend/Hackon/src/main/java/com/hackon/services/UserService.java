@@ -28,7 +28,7 @@ public class UserService {
         if(userDto == null) throw new BadRequestException("User cannot be null");
         if(userDto.name().isEmpty()) throw new BadRequestException("Name cannot be null");
         if(userDto.role() == null) throw new BadRequestException("Role cannot be null");
-        if(userDto.username().isEmpty()) throw new BadRequestException("Username cannot be null");
+        if(userDto.email().isEmpty()) throw new BadRequestException("Email cannot be null");
         if(userDto.password().isEmpty()) throw new BadRequestException("Password cannot be null");
         var newUser = userRepository.save(userMapper.toEntity(userDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toDto(newUser));
@@ -57,7 +57,7 @@ public class UserService {
         if(userDto.id()==null) throw new BadRequestException("Id cannot be null");
         if(userDto.name().isEmpty()) throw new BadRequestException("Name cannot be null");
         if(userDto.role() == null) throw new BadRequestException("Role cannot be null");
-        if(userDto.username().isEmpty()) throw new BadRequestException("Username cannot be null");
+        if(userDto.email().isEmpty()) throw new BadRequestException("Email cannot be null");
         if(userDto.password().isEmpty()) throw new BadRequestException("Password cannot be null");
         var foundUser = userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
         if(foundUser == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");

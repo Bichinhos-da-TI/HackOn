@@ -13,7 +13,7 @@ public class UserMapper {
         if(user == null){
             return null;
         }
-        return new UserDto(user.getId(), user.getName(), user.getUsername(), user.getPassword(), toEnum(user.getRole()));
+        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getPassword(), toEnum(user.getRole()));
     }
 
     
@@ -21,14 +21,14 @@ public class UserMapper {
         if(userDto == null){
             return null;
         }
-        return new User(userDto.id(), userDto.name(), userDto.username(), userDto.password(), toEntityEnum(userDto.role()));
+        return new User(userDto.id(), userDto.name(), userDto.email(), userDto.password(), toEntityEnum(userDto.role()));
     }
 
     public User toEntity(CreateUserDto createUserDto)throws Exception{
         if(createUserDto == null){
             return null;
         }
-        return new User(createUserDto.name(), createUserDto.username(), createUserDto.password(), toEntityEnum(createUserDto.role()));
+        return new User(createUserDto.name(), createUserDto.email(), createUserDto.password(), toEntityEnum(createUserDto.role()));
     }
 
     public UserRoleEnum toEnum(String role) {
