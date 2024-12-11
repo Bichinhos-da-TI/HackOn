@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackon.entities.Hackathon;
 
-public interface HackatonRepository extends JpaRepository<Long, Hackathon>{
+public interface HackatonRepository extends JpaRepository<Hackathon, Long>{
 
 }
