@@ -1,7 +1,13 @@
 package com.hackon.controller;
 
+import com.hackon.dto.EventDto;
+import com.hackon.dto.request.CreateEventDto;
+import com.hackon.exception.NotFoundException;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.hackon.dto.UpdateEventDto;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hackon.entities.Event;
 import com.hackon.services.EventService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/events")
 public class EventController {
@@ -27,30 +36,32 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<?> listAll(){
+    @GetMapping
+    public ResponseEntity<List<EventDto>> listAll(){
         return ResponseEntity.ok(eventService.findAll());
     }
 
     @PostMapping()
-    public ResponseEntity<Event> create(@RequestBody Event event) {
-        Event eventCreated = eventService.create(event);
-        return new ResponseEntity<Event>(eventCreated, HttpStatusCode.valueOf(201));
-
+    public ResponseEntity<EventDto> create(@Valid @RequestBody CreateEventDto eventDto) {
+        EventDto eventCreated = eventService.create(eventDto);
+        return new ResponseEntity<>(eventCreated, HttpStatusCode.valueOf(201));
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        return eventService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) throws NotFoundException {
+        eventService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getEvent(@PathVariable Long id){
-        return eventService.getEvent(id);
+    public ResponseEntity<EventDto> getEvent(@PathVariable Long id) throws NotFoundException {
+        EventDto event = eventService.getEvent(id);
+        return ResponseEntity.ok(event);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody UpdateEventDto dto){
-        return eventService.update(id, dto);
+        eventService.update(id, dto);
+        return ResponseEntity.ok().build();
     }
 }
