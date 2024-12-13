@@ -62,7 +62,7 @@ public class EventService {
         //#TODO tem que fazer a validação de autorizacao quando tiver a entidade de usuarios
         //#TODO verificacao de desafio em_andamento ou concluido quando tiver a entidade
 
-        if(eventRepository.existsById(id)){
+        if(!eventRepository.existsById(id)){
             throw new NotFoundException("event not found");
         }
 
