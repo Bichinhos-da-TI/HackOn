@@ -19,14 +19,14 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @Column(unique=true)
     private String username;
     private String name;
     private String password;
     private String role;
 
-    public User(String role, Long id, String password, String name, String username) {
+    public User(String role, String id, String password, String name, String username) {
         this.role = role;
         this.id = id;
         this.password = password;
@@ -36,11 +36,11 @@ public class User implements UserDetails {
 
     public User(){}
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

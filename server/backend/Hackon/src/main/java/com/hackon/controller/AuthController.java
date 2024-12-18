@@ -1,6 +1,7 @@
 package com.hackon.controller;
 
 import com.hackon.dto.UserLoginDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,12 +21,14 @@ import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 public class AuthController {
 
     @PostMapping("")
-    public ResponseEntity<String> getToken(@RequestBody UserLoginDto userLoginDto) {
+    public ResponseEntity<String> getToken(@RequestBody UserLoginDto userLoginDto,
+                                           @Value("${keycloak.realm}") String realm,
+                                           @Value("${keycloak.client-id}") String clientId) {
         HttpHeaders headers = new HttpHeaders();
         RestTemplate rt = new RestTemplate();
         headers.setContentType(APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("client_id", userLoginDto.clientId());
+        formData.add("client_id", clientId);
         formData.add("grant_type", userLoginDto.grantType());
         formData.add("username", userLoginDto.username());
         formData.add("password", userLoginDto.password());
@@ -34,7 +37,7 @@ public class AuthController {
                 new HttpEntity<MultiValueMap<String, String>>(formData, headers);
 
 
-        var res = rt.postForEntity("http://link_do_keycloack/realms/hackOn/protocol/openid-connect/token" ,entity, String.class);
+        var res = rt.postForEntity("http://localhost:8081/realms/" + realm +"/protocol/openid-connect/token" ,entity, String.class);
         return res;
     }
 

@@ -3,9 +3,9 @@ spring:
     name: Hackon
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${DB_NAME:hackOn}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:123}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:
@@ -25,10 +25,17 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${ISSUER_URI}
+          issuer-uri: ${KEYCLOACK_ISSUERURI}/realms/hackOn
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
     # Usuario e senha temporarios
     user:
       name: admin
       password: 1234
     default-target-url: /home
+
+keycloak:
+  server-url: ${KEYCLOACK_URL}
+  realm: ${KEYCLOACK_REALM}
+  client-id: ${KEYCLOACK_CLIENTID}
+  username: ${KEYCLOACK_USER}
+  password: ${KEYCLOACK_PASSWORD}

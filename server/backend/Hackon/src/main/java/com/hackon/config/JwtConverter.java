@@ -17,6 +17,7 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
         Collection<String> roles = realmAccess.get("roles");
 
         var grants = roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).toList();
+        System.out.println(grants.toString());
         return new JwtAuthenticationToken(jwt, grants);
     }
 

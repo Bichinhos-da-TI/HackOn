@@ -27,7 +27,6 @@ public class SecurityConfig {
                         .jwt(jwt-> jwt.jwtAuthenticationConverter(new JwtConverter())))
                 .authorizeHttpRequests((auth -> auth
                         //Desabilitar após configurar autenticação
-                        .requestMatchers("/events/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/users").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/v1/auth").permitAll()
                         .anyRequest().authenticated()
