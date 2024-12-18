@@ -29,7 +29,7 @@ public class AuthController {
         headers.setContentType(APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("client_id", clientId);
-        formData.add("grant_type", userLoginDto.grantType());
+        formData.add("grant_type", "password");
         formData.add("username", userLoginDto.username());
         formData.add("password", userLoginDto.password());
 

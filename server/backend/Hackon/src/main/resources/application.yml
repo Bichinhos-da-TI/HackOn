@@ -35,7 +35,7 @@ spring:
 
 keycloak:
   server-url: ${KEYCLOACK_URL}
-  realm: ${KEYCLOACK_REALM}
+  realm: ${KEYCLOACK_REALM:hackOn}
   client-id: ${KEYCLOACK_CLIENTID}
   username: ${KEYCLOACK_USER}
   password: ${KEYCLOACK_PASSWORD}
