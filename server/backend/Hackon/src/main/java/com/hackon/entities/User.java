@@ -16,17 +16,24 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @Column(unique=true)
-    private String username;
+    private String email;
     private String name;
     private String password;
     private String role;
 
-    public User(String role, Long id, String password, String name, String username) {
-        this.role = role;
+    public User(Long id,String name, String email,String password,String role) {
         this.id = id;
-        this.password = password;
-        this.username = username;
         this.name = name;
+        this.email = email;
+        this.password = password;        
+        this.role = role;
+    }
+    //constructor usado para criacao de usuario no caso nao recebe nenhum ID
+    public User(String name, String email, String password,String role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
     public User(){}
@@ -39,12 +46,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
