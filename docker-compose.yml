@@ -2,10 +2,38 @@ services:
   server:
     hostname: server
     build: ./server/backend/Hackon
+    environment:
+      DB_HOST: ${DB_HOST_DEV}
+      DB_PORT: ${DB_PORT_DEV}
+      DB_NAME: ${DB_NAME_DEV}
+      DB_USER: ${DB_USER_DEV}
+      DB_PASSWORD: ${DB_PASSWORD_DEV}
+      KEYCLOACK_URL: ${KEYCLOACK_URL}
+      KEYCLOACK_REALM: ${KEYCLOACK_REALM}
+      KEYCLOACK_CLIENTID: ${KEYCLOACK_CLIENTID}
+      KEYCLOACK_USER: ${KEYCLOACK_USER}
+      KEYCLOACK_PASSWORD: ${KEYCLOACK_PASSWORD}
+      KEYCLOACK_ISSUERURI: ${KEYCLOACK_ISSUERURI}
     ports:
       - "8080:8080"
     depends_on:
       - postgres-develop
+      - keycloak
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    container_name: keycloak
+    command:
+      - start-dev
+      - --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KEYCLOAK_IMPORT: /opt/keycloak/data/import/realm-export.json
+    volumes:
+      - ./keycloackScript/realm-config.json:/opt/keycloak/data/import/realm-export.json
+    ports:
+      - 8081:8080
+    restart: always
   postgres-develop:
     image: postgres:latest
     container_name: postgres-dev
@@ -16,7 +44,7 @@ services:
       DB_PASSWORD_DEV: ${DB_PASSWORD_DEV}
       DB_NAME_DEV: ${DB_NAME_DEV}
     ports:
-      - $"{DB_PORT_DEV}:5432"
+      - ${DB_PORT_DEV}:5432
     volumes:
       - postgres-dev-data:/var/lib/postgresql/data
 
@@ -30,7 +58,7 @@ services:
       DB_PASSWORD_DEV: ${DB_PASSWORD}
       DB_NAME_DEV: ${DB_NAME}
     ports:
-      - $"{DB_PORT}:5432"
+      - ${DB_PORT}:5432
     volumes:
       - postgres-prod-data:/var/lib/postgresql/data
 
